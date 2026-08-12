@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Manage Tours – Admin{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-map text-warning"></i> Manage Tours</h2>
+    <a href="{{ url_for('admin_add_tour') }}" class="btn btn-warning"><i class="bi bi-plus-circle"></i> Add Tour</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Destination</th>
+          <th>Price</th>
+          <th>Duration</th>
+          <th>Seats</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tour in tours %}
+        <tr>
+          <td>{{ tour.id }}</td>
+          <td>{{ tour.title }}</td>
+          <td>{{ tour.destination }}</td>
+          <td>${{ "%.0f"|format(tour.price) }}</td>
+          <td>{{ tour.duration_days }}d</td>
+          <td>{{ tour.available_seats }}/{{ tour.max_seats }}</td>
+          <td>
+            {% if tour.is_active %}
+              <span class="badge bg-success">Active</span>
+            {% else %}
+              <span class="badge bg-secondary">Inactive</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('admin_edit_tour', tour_id=tour.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            <form method="POST" action="{{ url_for('admin_delete_tour', tour_id=tour.id) }}" class="d-inline"
+                  onsubmit="return confirm('Delete this tour?')">
+              <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">← Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+.hero-section {
+  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+              url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600') center/cover no-repeat;
+  min-height: 480px;
+  padding: 60px 20px;
+}
+
+.tour-img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.tour-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tour-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+}

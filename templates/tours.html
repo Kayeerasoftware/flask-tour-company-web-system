@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}All Tours – WanderWorld{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="fw-bold mb-4">All Tours</h2>
+
+  <!-- Filter Form -->
+  <form method="GET" class="row g-2 mb-4 p-3 bg-light rounded shadow-sm">
+    <div class="col-md-5">
+      <input type="text" name="destination" class="form-control" placeholder="Search destination..." value="{{ destination or '' }}" />
+    </div>
+    <div class="col-md-4">
+      <input type="number" name="max_price" class="form-control" placeholder="Max price ($)" value="{{ max_price or '' }}" min="0" />
+    </div>
+    <div class="col-md-3 d-flex gap-2">
+      <button type="submit" class="btn btn-dark w-100"><i class="bi bi-search"></i> Filter</button>
+      <a href="{{ url_for('tours') }}" class="btn btn-outline-secondary w-100">Clear</a>
+    </div>
+  </form>
+
+  {% if tours %}
+  <div class="row g-4">
+    {% for tour in tours %}
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm tour-card">
+        <img src="{{ tour.image_url }}" class="card-img-top tour-img" alt="{{ tour.title }}" />
+        <div class="card-body">
+          <span class="badge bg-warning text-dark mb-2">{{ tour.destination }}</span>
+          <h5 class="card-title">{{ tour.title }}</h5>
+          <p class="card-text text-muted small">{{ tour.description[:120] }}...</p>
+          <div class="d-flex gap-3 text-muted small">
+            <span><i class="bi bi-clock"></i> {{ tour.duration_days }} days</span>
+            <span><i class="bi bi-people"></i> {{ tour.available_seats }} seats left</span>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <span class="fw-bold text-success fs-5">${{ "%.0f"|format(tour.price) }}</span>
+          <a href="{{ url_for('tour_detail', tour_id=tour.id) }}" class="btn btn-sm btn-dark">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-5">
+    <i class="bi bi-search fs-1 text-muted"></i>
+    <p class="mt-3 text-muted">No tours found matching your criteria.</p>
+    <a href="{{ url_for('tours') }}" class="btn btn-outline-dark">View All Tours</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

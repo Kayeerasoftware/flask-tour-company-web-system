@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}{{ tour.title }} – WanderWorld{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <img src="{{ tour.image_url }}" class="img-fluid rounded shadow" alt="{{ tour.title }}" />
+    </div>
+    <div class="col-lg-5">
+      <span class="badge bg-warning text-dark fs-6 mb-2">{{ tour.destination }}</span>
+      <h2 class="fw-bold">{{ tour.title }}</h2>
+      <p class="text-muted">{{ tour.description }}</p>
+
+      <ul class="list-group list-group-flush mb-4">
+        <li class="list-group-item d-flex justify-content-between">
+          <span><i class="bi bi-clock text-warning"></i> Duration</span>
+          <strong>{{ tour.duration_days }} days</strong>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span><i class="bi bi-people text-warning"></i> Available Seats</span>
+          <strong>{{ tour.available_seats }} / {{ tour.max_seats }}</strong>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span><i class="bi bi-cash-coin text-warning"></i> Price per Person</span>
+          <strong class="text-success fs-5">${{ "%.0f"|format(tour.price) }}</strong>
+        </li>
+      </ul>
+
+      {% if tour.available_seats > 0 %}
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('book_tour', tour_id=tour.id) }}" class="btn btn-warning btn-lg w-100">
+            <i class="bi bi-calendar-plus"></i> Book This Tour
+          </a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="btn btn-warning btn-lg w-100">
+            <i class="bi bi-box-arrow-in-right"></i> Login to Book
+          </a>
+        {% endif %}
+      {% else %}
+        <button class="btn btn-secondary btn-lg w-100" disabled>Fully Booked</button>
+      {% endif %}
+
+      <a href="{{ url_for('tours') }}" class="btn btn-outline-secondary w-100 mt-2">← Back to Tours</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

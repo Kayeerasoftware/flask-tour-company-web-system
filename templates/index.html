@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}WanderWorld Tours – Explore the World{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<div class="hero-section text-white text-center d-flex align-items-center justify-content-center">
+  <div>
+    <h1 class="display-3 fw-bold">Discover Your Next Adventure</h1>
+    <p class="lead mb-4">Handcrafted tours to the world's most breathtaking destinations</p>
+    <a href="{{ url_for('tours') }}" class="btn btn-warning btn-lg px-5">Browse All Tours</a>
+  </div>
+</div>
+
+<!-- Stats Bar -->
+<div class="bg-dark text-white py-3">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-4"><h4 class="text-warning mb-0">50+</h4><small>Destinations</small></div>
+      <div class="col-4"><h4 class="text-warning mb-0">10K+</h4><small>Happy Travelers</small></div>
+      <div class="col-4"><h4 class="text-warning mb-0">15+</h4><small>Years Experience</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Tours -->
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4">Featured Tours</h2>
+  <div class="row g-4">
+    {% for tour in tours %}
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm tour-card">
+        <img src="{{ tour.image_url }}" class="card-img-top tour-img" alt="{{ tour.title }}" />
+        <div class="card-body">
+          <span class="badge bg-warning text-dark mb-2">{{ tour.destination }}</span>
+          <h5 class="card-title">{{ tour.title }}</h5>
+          <p class="card-text text-muted small">{{ tour.description[:100] }}...</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <div>
+            <i class="bi bi-clock text-muted"></i> {{ tour.duration_days }} days
+            <span class="ms-2 fw-bold text-success">${{ "%.0f"|format(tour.price) }}</span>
+          </div>
+          <a href="{{ url_for('tour_detail', tour_id=tour.id) }}" class="btn btn-sm btn-outline-dark">View</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="text-center mt-4">
+    <a href="{{ url_for('tours') }}" class="btn btn-dark px-4">See All Tours →</a>
+  </div>
+</div>
+
+<!-- Why Us -->
+<div class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Why Choose WanderWorld?</h2>
+    <div class="row g-4 text-center">
+      <div class="col-md-3">
+        <i class="bi bi-shield-check fs-1 text-warning"></i>
+        <h6 class="mt-2 fw-bold">Safe & Trusted</h6>
+        <p class="text-muted small">15+ years of safe travel experiences worldwide.</p>
+      </div>
+      <div class="col-md-3">
+        <i class="bi bi-headset fs-1 text-warning"></i>
+        <h6 class="mt-2 fw-bold">24/7 Support</h6>
+        <p class="text-muted small">Our team is always available to assist you.</p>
+      </div>
+      <div class="col-md-3">
+        <i class="bi bi-cash-coin fs-1 text-warning"></i>
+        <h6 class="mt-2 fw-bold">Best Price</h6>
+        <p class="text-muted small">Competitive pricing with no hidden fees.</p>
+      </div>
+      <div class="col-md-3">
+        <i class="bi bi-map fs-1 text-warning"></i>
+        <h6 class="mt-2 fw-bold">Expert Guides</h6>
+        <p class="text-muted small">Local expert guides for authentic experiences.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

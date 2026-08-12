@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Contact Messages – Admin{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-envelope text-warning"></i> Contact Messages</h2>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">← Dashboard</a>
+  </div>
+
+  {% if messages %}
+  <div class="row g-3">
+    {% for msg in messages %}
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h6 class="fw-bold mb-0">{{ msg.name }}</h6>
+            <small class="text-muted">{{ msg.created_at.strftime('%b %d, %Y') }}</small>
+          </div>
+          <small class="text-muted">{{ msg.email }}</small>
+          <p class="mt-2 mb-0">{{ msg.message }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted">No messages yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
