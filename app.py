@@ -328,7 +328,7 @@ def seed_data():
             destination='Bwindi Impenetrable Forest, Kigezi',
             description='Embark on a once-in-a-lifetime gorilla trekking experience deep inside Bwindi Impenetrable National Park — a UNESCO World Heritage Site. Trek through ancient montane forest to spend a magical hour with habituated mountain gorilla families. Bwindi is home to nearly half of the world\'s remaining mountain gorillas. The package includes park entry, gorilla permits, an experienced ranger guide, accommodation in a forest lodge, and transfers from Kampala.',
             duration_days=3, price=2500000, max_seats=8,
-            image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Bwindi_Impenetrable_Forest.jpg/800px-Bwindi_Impenetrable_Forest.jpg'
+            image_url='https://images.unsplash.com/photo-1448375240586-882707db888b?w=800'
         ),
         Tour(
             title='Queen Elizabeth Wildlife Safari',
@@ -399,7 +399,7 @@ with app.app_context():
     if _bwindi:
         db.session.execute(db.text(
             "UPDATE tour SET image_url = :url WHERE title LIKE '%Bwindi%'"
-        ), {'url': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Bwindi_Impenetrable_Forest.jpg/800px-Bwindi_Impenetrable_Forest.jpg'})
+        ), {'url': 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800'})
         db.session.commit()
 
 
