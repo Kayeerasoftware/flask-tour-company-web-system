@@ -21,16 +21,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('tours') }}">Tours</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint in ['tours', 'tour_detail'] %}active{% endif %}" href="{{ url_for('tours') }}">Tours</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About Us</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a></li>
       </ul>
       <ul class="navbar-nav ms-auto align-items-center">
         {% if current_user.is_authenticated %}
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('my_bookings') }}"><i class="bi bi-calendar-check"></i> My Bookings</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint == 'my_bookings' %}active{% endif %}" href="{{ url_for('my_bookings') }}"><i class="bi bi-calendar-check"></i> My Bookings</a></li>
           {% if current_user.is_admin %}
-            <li class="nav-item"><a class="nav-link text-warning" href="{{ url_for('admin_dashboard') }}"><i class="bi bi-shield-lock"></i> Admin</a></li>
+            <li class="nav-item"><a class="nav-link {% if 'admin' in request.endpoint %}active{% endif %}" href="{{ url_for('admin_dashboard') }}"><i class="bi bi-shield-lock"></i> Admin</a></li>
           {% endif %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -43,8 +43,8 @@
             </ul>
           </li>
         {% else %}
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
-          <li class="nav-item"><a class="btn btn-warning btn-sm ms-2 px-3" href="{{ url_for('register') }}">Register</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}" href="{{ url_for('register') }}">Register</a></li>
         {% endif %}
       </ul>
     </div>

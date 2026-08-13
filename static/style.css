@@ -11,6 +11,25 @@
   background: var(--ug-black) !important;
 }
 
+#mainNav .nav-link {
+  color: #ccc !important;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+#mainNav .nav-link:hover {
+  color: #fff !important;
+  background: #1565c0;
+}
+
+#mainNav .nav-link.active,
+#mainNav .nav-link:focus {
+  color: #fff !important;
+  background: #1a6b3c;
+  outline: none;
+}
+
 .nav-logo {
   height: 42px;
   width: 42px;
