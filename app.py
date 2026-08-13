@@ -316,15 +316,8 @@ def admin_messages():
 # ── Seed & Init ───────────────────────────────────────────────────────────────
 
 def seed_data():
-    # Re-seed if old non-Uganda data exists
-    first = Tour.query.first()
-    if first and ('Bwindi' in first.title or 'Uganda' in first.destination):
+    if Tour.query.first():
         return
-    if first:
-        Booking.query.delete()
-        Tour.query.delete()
-        User.query.delete()
-        db.session.commit()
     admin = User(name='Admin', email='admin@dehapiz.com',
                  password=generate_password_hash('admin123'), is_admin=True)
     db.session.add(admin)
@@ -335,7 +328,7 @@ def seed_data():
             destination='Bwindi Impenetrable Forest, Kigezi',
             description='Embark on a once-in-a-lifetime gorilla trekking experience deep inside Bwindi Impenetrable National Park — a UNESCO World Heritage Site. Trek through ancient montane forest to spend a magical hour with habituated mountain gorilla families. Bwindi is home to nearly half of the world\'s remaining mountain gorillas. The package includes park entry, gorilla permits, an experienced ranger guide, accommodation in a forest lodge, and transfers from Kampala.',
             duration_days=3, price=2500000, max_seats=8,
-            image_url='https://images.unsplash.com/photo-1605552916853-3c8e5e8e8e8e?w=800'
+            image_url='https://images.unsplash.com/photo-1594803294810-c860e5d29e07?w=800'
         ),
         Tour(
             title='Queen Elizabeth Wildlife Safari',
