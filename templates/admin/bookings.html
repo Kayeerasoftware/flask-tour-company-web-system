@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}All Bookings – Admin{% endblock %}
+{% block title %}All Bookings – DEHAPIZ Admin{% endblock %}
 
 {% block content %}
 <div class="container my-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold"><i class="bi bi-calendar-check text-warning"></i> All Bookings</h2>
+    <div>
+      <h2 class="fw-bold mb-0"><i class="bi bi-calendar-check text-warning"></i> All Bookings</h2>
+      <p class="text-muted small mb-0">{{ bookings|length }} total bookings</p>
+    </div>
     <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">← Dashboard</a>
   </div>
 
@@ -13,11 +16,11 @@
       <thead class="table-dark">
         <tr>
           <th>#</th>
-          <th>User</th>
+          <th>Customer</th>
           <th>Tour</th>
           <th>Travel Date</th>
           <th>Seats</th>
-          <th>Total</th>
+          <th>Total (UGX)</th>
           <th>Status</th>
           <th>Booked On</th>
         </tr>
@@ -25,12 +28,15 @@
       <tbody>
         {% for b in bookings %}
         <tr>
-          <td>{{ b.id }}</td>
-          <td>{{ b.user.name }}<br><small class="text-muted">{{ b.user.email }}</small></td>
-          <td>{{ b.tour.title }}</td>
-          <td>{{ b.travel_date.strftime('%b %d, %Y') }}</td>
+          <td class="text-muted small">{{ b.id }}</td>
+          <td>
+            <div class="fw-semibold">{{ b.user.name }}</div>
+            <small class="text-muted">{{ b.user.email }}</small>
+          </td>
+          <td><small>{{ b.tour.title }}</small></td>
+          <td><strong>{{ b.travel_date.strftime('%d %b %Y') }}</strong></td>
           <td>{{ b.seats }}</td>
-          <td class="fw-bold text-success">${{ "%.0f"|format(b.total_price) }}</td>
+          <td class="fw-bold text-success">{{ "{:,.0f}".format(b.total_price) }}</td>
           <td>
             {% if b.status == 'confirmed' %}
               <span class="badge bg-success">Confirmed</span>
@@ -38,7 +44,7 @@
               <span class="badge bg-secondary">Cancelled</span>
             {% endif %}
           </td>
-          <td><small>{{ b.created_at.strftime('%b %d, %Y') }}</small></td>
+          <td><small class="text-muted">{{ b.created_at.strftime('%d %b %Y') }}</small></td>
         </tr>
         {% endfor %}
       </tbody>

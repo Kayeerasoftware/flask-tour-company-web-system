@@ -1,46 +1,52 @@
 {% extends 'base.html' %}
-{% block title %}{{ 'Edit' if tour else 'Add' }} Tour – Admin{% endblock %}
+{% block title %}{{ 'Edit' if tour else 'Add' }} Tour – DEHAPIZ Admin{% endblock %}
 
 {% block content %}
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-7">
-      <div class="card shadow">
+      <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white py-3">
+          <h4 class="fw-bold mb-0">
+            <i class="bi bi-{{ 'pencil' if tour else 'plus-circle' }} text-warning me-2"></i>
+            {{ 'Edit Tour' if tour else 'Add New Uganda Tour' }}
+          </h4>
+        </div>
         <div class="card-body p-4">
-          <h3 class="fw-bold mb-4">
-            <i class="bi bi-{{ 'pencil' if tour else 'plus-circle' }} text-warning"></i>
-            {{ 'Edit Tour' if tour else 'Add New Tour' }}
-          </h3>
           <form method="POST">
             <div class="mb-3">
-              <label class="form-label">Title</label>
-              <input type="text" name="title" class="form-control" value="{{ tour.title if tour else '' }}" required />
+              <label class="form-label fw-semibold">Tour Title</label>
+              <input type="text" name="title" class="form-control" value="{{ tour.title if tour else '' }}"
+                     placeholder="e.g. Bwindi Gorilla Trekking Safari" required />
             </div>
             <div class="mb-3">
-              <label class="form-label">Destination</label>
-              <input type="text" name="destination" class="form-control" value="{{ tour.destination if tour else '' }}" required />
+              <label class="form-label fw-semibold">Destination / Region</label>
+              <input type="text" name="destination" class="form-control" value="{{ tour.destination if tour else '' }}"
+                     placeholder="e.g. Bwindi Impenetrable Forest, Kigezi" required />
             </div>
             <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea name="description" class="form-control" rows="4" required>{{ tour.description if tour else '' }}</textarea>
+              <label class="form-label fw-semibold">Description</label>
+              <textarea name="description" class="form-control" rows="5" required>{{ tour.description if tour else '' }}</textarea>
             </div>
             <div class="row g-3">
               <div class="col-md-4">
-                <label class="form-label">Duration (days)</label>
+                <label class="form-label fw-semibold">Duration (days)</label>
                 <input type="number" name="duration_days" class="form-control" value="{{ tour.duration_days if tour else '' }}" min="1" required />
               </div>
               <div class="col-md-4">
-                <label class="form-label">Price ($)</label>
-                <input type="number" name="price" class="form-control" value="{{ tour.price if tour else '' }}" min="0" step="0.01" required />
+                <label class="form-label fw-semibold">Price (UGX)</label>
+                <input type="number" name="price" class="form-control" value="{{ tour.price if tour else '' }}" min="0" step="1000" required />
               </div>
               <div class="col-md-4">
-                <label class="form-label">Max Seats</label>
+                <label class="form-label fw-semibold">Max Seats</label>
                 <input type="number" name="max_seats" class="form-control" value="{{ tour.max_seats if tour else '' }}" min="1" required />
               </div>
             </div>
             <div class="mb-3 mt-3">
-              <label class="form-label">Image URL</label>
-              <input type="url" name="image_url" class="form-control" value="{{ tour.image_url if tour else '' }}" placeholder="https://..." />
+              <label class="form-label fw-semibold">Image URL</label>
+              <input type="url" name="image_url" class="form-control" value="{{ tour.image_url if tour else '' }}"
+                     placeholder="https://images.unsplash.com/..." />
+              <div class="form-text">Use an Unsplash URL for a Uganda-related image</div>
             </div>
             {% if tour %}
             <div class="mb-3 form-check">
@@ -48,7 +54,7 @@
               <label class="form-check-label" for="isActive">Active (visible to users)</label>
             </div>
             {% endif %}
-            <button type="submit" class="btn btn-warning w-100 fw-bold">
+            <button type="submit" class="btn btn-warning w-100 fw-bold btn-lg">
               {{ 'Update Tour' if tour else 'Add Tour' }}
             </button>
             <a href="{{ url_for('admin_tours') }}" class="btn btn-outline-secondary w-100 mt-2">Cancel</a>

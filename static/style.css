@@ -1,20 +1,188 @@
+/* ── Brand Colors: Uganda flag inspired (black, yellow, red) ── */
+:root {
+  --ug-black: #1a1a1a;
+  --ug-yellow: #FCDC04;
+  --ug-red: #D90000;
+  --ug-green: #198754;
+}
+
+/* ── Navbar ── */
+#mainNav {
+  background: var(--ug-black) !important;
+}
+
+.nav-logo {
+  height: 42px;
+  width: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--ug-yellow);
+}
+
+.brand-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+/* ── Hero Section ── */
 .hero-section {
-  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-              url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600') center/cover no-repeat;
-  min-height: 480px;
-  padding: 60px 20px;
+  background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
+              url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600') center/cover no-repeat;
+  min-height: 520px;
+  padding: 80px 20px;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  opacity: 0.85;
+}
+
+.ug-flag-badge {
+  display: inline-block;
+  background: var(--ug-yellow);
+  color: var(--ug-black);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 6px 18px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+}
+
+/* ── Stats Bar ── */
+.stats-bar {
+  background: var(--ug-black);
+}
+
+/* ── Page Header (inner pages) ── */
+.page-header {
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+              url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1400') center/cover no-repeat;
+}
+
+/* ── Tour Cards ── */
+.tour-img-wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
 .tour-img {
   height: 220px;
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
 .tour-card {
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.25s, box-shadow 0.25s;
+  border-radius: 12px !important;
+  overflow: hidden;
 }
 
 .tour-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15) !important;
+}
+
+.tour-card:hover .tour-img {
+  transform: scale(1.05);
+}
+
+.tour-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--ug-yellow);
+  color: var(--ug-black);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* ── Uganda Highlights Section ── */
+.uganda-highlights {
+  background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)),
+              url('https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=1400') center/cover no-repeat;
+}
+
+.highlight-card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.2s;
+}
+
+.highlight-card:hover {
+  background: rgba(252,220,4,0.15);
+}
+
+/* ── CTA Strip ── */
+.cta-strip {
+  background: linear-gradient(135deg, var(--ug-black) 0%, #2d2d2d 100%);
+  border-top: 4px solid var(--ug-yellow);
+}
+
+/* ── Team Cards ── */
+.team-card {
+  border-radius: 16px !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+.team-photo {
+  object-fit: cover;
+  border: 3px solid var(--ug-yellow);
+}
+
+/* ── Footer ── */
+.footer-main {
+  background: var(--ug-black);
+}
+
+.footer-logo {
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--ug-yellow);
+}
+
+.footer-link {
+  color: #aaa;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: var(--ug-yellow);
+}
+
+/* ── Misc ── */
+.breadcrumb-item a {
+  color: var(--ug-yellow);
+  text-decoration: none;
+}
+
+.btn-warning {
+  background-color: var(--ug-yellow);
+  border-color: var(--ug-yellow);
+  color: var(--ug-black);
+}
+
+.btn-warning:hover {
+  background-color: #e6c800;
+  border-color: #e6c800;
+  color: var(--ug-black);
 }

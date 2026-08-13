@@ -1,47 +1,96 @@
 {% extends 'base.html' %}
-{% block title %}{{ tour.title }} – WanderWorld{% endblock %}
+{% block title %}{{ tour.title }} – DEHAPIZ Tour and Travel Uganda{% endblock %}
 
 {% block content %}
 <div class="container my-5">
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{ url_for('tours') }}">Tours</a></li>
+      <li class="breadcrumb-item active">{{ tour.title }}</li>
+    </ol>
+  </nav>
+
   <div class="row g-4">
     <div class="col-lg-7">
-      <img src="{{ tour.image_url }}" class="img-fluid rounded shadow" alt="{{ tour.title }}" />
+      <div class="tour-img-wrapper rounded overflow-hidden shadow">
+        <img src="{{ tour.image_url }}" class="img-fluid w-100" style="max-height:420px;object-fit:cover;" alt="{{ tour.title }}" />
+      </div>
+      <div class="mt-4">
+        <h4 class="fw-bold">About This Tour</h4>
+        <p class="text-muted lh-lg">{{ tour.description }}</p>
+      </div>
+      <!-- What's Included -->
+      <div class="mt-3 p-4 bg-light rounded-3">
+        <h5 class="fw-bold mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>What's Included</h5>
+        <div class="row">
+          <div class="col-6">
+            <ul class="list-unstyled small">
+              <li class="mb-1"><i class="bi bi-check text-success me-1"></i> Transport (4WD vehicle)</li>
+              <li class="mb-1"><i class="bi bi-check text-success me-1"></i> Accommodation</li>
+              <li class="mb-1"><i class="bi bi-check text-success me-1"></i> Meals (full board)</li>
+              <li class="mb-1"><i class="bi bi-check text-success me-1"></i> Park entry fees</li>
+            </ul>
+          </div>
+          <div class="col-6">
+            <ul class="list-unstyled small">
+              <li class="mb-1"><i class="bi bi-check text-success me-1"></i> Expert local guide</li>
+              <li class="mb-1"><i class="bi bi-check text-success me-1"></i> Bottled water</li>
+              <li class="mb-1"><i class="bi bi-x text-danger me-1"></i> International flights</li>
+              <li class="mb-1"><i class="bi bi-x text-danger me-1"></i> Travel insurance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="col-lg-5">
-      <span class="badge bg-warning text-dark fs-6 mb-2">{{ tour.destination }}</span>
-      <h2 class="fw-bold">{{ tour.title }}</h2>
-      <p class="text-muted">{{ tour.description }}</p>
+      <div class="card shadow border-0 sticky-top" style="top:80px;">
+        <div class="card-header bg-dark text-white py-3">
+          <span class="badge bg-warning text-dark mb-1">{{ tour.destination }}</span>
+          <h4 class="fw-bold mb-0">{{ tour.title }}</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span class="text-muted"><i class="bi bi-clock text-warning me-1"></i> Duration</span>
+              <strong>{{ tour.duration_days }} days</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span class="text-muted"><i class="bi bi-people text-warning me-1"></i> Available Seats</span>
+              <strong>{{ tour.available_seats }} / {{ tour.max_seats }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span class="text-muted"><i class="bi bi-geo-alt text-warning me-1"></i> Location</span>
+              <strong>{{ tour.destination.split(',')[0] }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span class="text-muted"><i class="bi bi-cash-coin text-warning me-1"></i> Price / Person</span>
+              <strong class="text-success fs-5">UGX {{ "{:,.0f}".format(tour.price) }}</strong>
+            </li>
+          </ul>
 
-      <ul class="list-group list-group-flush mb-4">
-        <li class="list-group-item d-flex justify-content-between">
-          <span><i class="bi bi-clock text-warning"></i> Duration</span>
-          <strong>{{ tour.duration_days }} days</strong>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span><i class="bi bi-people text-warning"></i> Available Seats</span>
-          <strong>{{ tour.available_seats }} / {{ tour.max_seats }}</strong>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span><i class="bi bi-cash-coin text-warning"></i> Price per Person</span>
-          <strong class="text-success fs-5">${{ "%.0f"|format(tour.price) }}</strong>
-        </li>
-      </ul>
+          {% if tour.available_seats > 0 %}
+            {% if current_user.is_authenticated %}
+              <a href="{{ url_for('book_tour', tour_id=tour.id) }}" class="btn btn-warning btn-lg w-100 fw-bold">
+                <i class="bi bi-calendar-plus me-1"></i> Book This Tour
+              </a>
+            {% else %}
+              <a href="{{ url_for('login') }}" class="btn btn-warning btn-lg w-100 fw-bold">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login to Book
+              </a>
+            {% endif %}
+          {% else %}
+            <button class="btn btn-secondary btn-lg w-100" disabled>Fully Booked</button>
+          {% endif %}
 
-      {% if tour.available_seats > 0 %}
-        {% if current_user.is_authenticated %}
-          <a href="{{ url_for('book_tour', tour_id=tour.id) }}" class="btn btn-warning btn-lg w-100">
-            <i class="bi bi-calendar-plus"></i> Book This Tour
+          <a href="https://wa.me/256700000000?text=Hello DEHAPIZ, I'm interested in the {{ tour.title }} tour."
+             class="btn btn-outline-success w-100 mt-2">
+            <i class="bi bi-whatsapp me-1"></i> Enquire on WhatsApp
           </a>
-        {% else %}
-          <a href="{{ url_for('login') }}" class="btn btn-warning btn-lg w-100">
-            <i class="bi bi-box-arrow-in-right"></i> Login to Book
-          </a>
-        {% endif %}
-      {% else %}
-        <button class="btn btn-secondary btn-lg w-100" disabled>Fully Booked</button>
-      {% endif %}
-
-      <a href="{{ url_for('tours') }}" class="btn btn-outline-secondary w-100 mt-2">← Back to Tours</a>
+          <a href="{{ url_for('tours') }}" class="btn btn-outline-secondary w-100 mt-2">← Back to Tours</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

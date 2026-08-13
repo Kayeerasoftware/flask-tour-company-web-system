@@ -1,59 +1,65 @@
 {% extends 'base.html' %}
-{% block title %}Admin Dashboard – WanderWorld{% endblock %}
+{% block title %}Admin Dashboard – DEHAPIZ{% endblock %}
 
 {% block content %}
 <div class="container my-5">
-  <h2 class="fw-bold mb-4"><i class="bi bi-shield-lock text-warning"></i> Admin Dashboard</h2>
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <i class="bi bi-shield-lock-fill text-warning fs-2"></i>
+    <div>
+      <h2 class="fw-bold mb-0">Admin Dashboard</h2>
+      <p class="text-muted mb-0 small">DEHAPIZ Tour and Travel Uganda — Control Panel</p>
+    </div>
+  </div>
 
   <div class="row g-4 mb-5">
-    <div class="col-md-3">
-      <div class="card text-white bg-dark shadow text-center p-3">
+    <div class="col-md-3 col-6">
+      <div class="card text-white bg-dark shadow text-center p-3 border-0">
         <i class="bi bi-map fs-1 text-warning"></i>
         <h3 class="fw-bold mt-2">{{ stats.tours }}</h3>
-        <p class="mb-0">Total Tours</p>
+        <p class="mb-0 small">Total Tours</p>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card text-white bg-dark shadow text-center p-3">
+    <div class="col-md-3 col-6">
+      <div class="card text-white bg-dark shadow text-center p-3 border-0">
         <i class="bi bi-people fs-1 text-warning"></i>
         <h3 class="fw-bold mt-2">{{ stats.users }}</h3>
-        <p class="mb-0">Registered Users</p>
+        <p class="mb-0 small">Registered Users</p>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card text-white bg-dark shadow text-center p-3">
+    <div class="col-md-3 col-6">
+      <div class="card text-white bg-dark shadow text-center p-3 border-0">
         <i class="bi bi-calendar-check fs-1 text-warning"></i>
         <h3 class="fw-bold mt-2">{{ stats.bookings }}</h3>
-        <p class="mb-0">Active Bookings</p>
+        <p class="mb-0 small">Active Bookings</p>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card text-white bg-dark shadow text-center p-3">
+    <div class="col-md-3 col-6">
+      <div class="card text-white bg-dark shadow text-center p-3 border-0">
         <i class="bi bi-cash-stack fs-1 text-warning"></i>
-        <h3 class="fw-bold mt-2">${{ "%.0f"|format(stats.revenue) }}</h3>
-        <p class="mb-0">Total Revenue</p>
+        <p class="mb-0 small mt-2">Total Revenue</p>
+        <h5 class="fw-bold mt-1">UGX {{ "{:,.0f}".format(stats.revenue) }}</h5>
       </div>
     </div>
   </div>
 
   <div class="row g-3">
-    <div class="col-md-3">
-      <a href="{{ url_for('admin_tours') }}" class="btn btn-outline-dark w-100 py-3">
+    <div class="col-md-3 col-6">
+      <a href="{{ url_for('admin_tours') }}" class="btn btn-outline-dark w-100 py-3 text-center">
         <i class="bi bi-map fs-4 d-block mb-1"></i> Manage Tours
       </a>
     </div>
-    <div class="col-md-3">
-      <a href="{{ url_for('admin_add_tour') }}" class="btn btn-warning w-100 py-3">
+    <div class="col-md-3 col-6">
+      <a href="{{ url_for('admin_add_tour') }}" class="btn btn-warning w-100 py-3 text-center">
         <i class="bi bi-plus-circle fs-4 d-block mb-1"></i> Add New Tour
       </a>
     </div>
-    <div class="col-md-3">
-      <a href="{{ url_for('admin_bookings') }}" class="btn btn-outline-dark w-100 py-3">
+    <div class="col-md-3 col-6">
+      <a href="{{ url_for('admin_bookings') }}" class="btn btn-outline-dark w-100 py-3 text-center">
         <i class="bi bi-calendar-check fs-4 d-block mb-1"></i> View Bookings
       </a>
     </div>
-    <div class="col-md-3">
-      <a href="{{ url_for('admin_messages') }}" class="btn btn-outline-dark w-100 py-3">
+    <div class="col-md-3 col-6">
+      <a href="{{ url_for('admin_messages') }}" class="btn btn-outline-dark w-100 py-3 text-center">
         <i class="bi bi-envelope fs-4 d-block mb-1"></i> Messages
       </a>
     </div>

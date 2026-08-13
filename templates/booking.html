@@ -1,29 +1,44 @@
 {% extends 'base.html' %}
-{% block title %}Book {{ tour.title }} – WanderWorld{% endblock %}
+{% block title %}Book {{ tour.title }} – DEHAPIZ{% endblock %}
 
 {% block content %}
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card shadow">
+      <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white py-3">
+          <h4 class="fw-bold mb-0"><i class="bi bi-calendar-plus text-warning me-2"></i>Book Your Tour</h4>
+        </div>
         <div class="card-body p-4">
-          <h3 class="fw-bold mb-1"><i class="bi bi-calendar-plus text-warning"></i> Book Tour</h3>
-          <p class="text-muted mb-4">{{ tour.title }} — <strong class="text-success">${{ "%.0f"|format(tour.price) }}/person</strong></p>
+          <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded-3">
+            <img src="{{ tour.image_url }}" class="rounded" width="70" height="60" style="object-fit:cover;" alt="{{ tour.title }}" />
+            <div>
+              <div class="fw-bold">{{ tour.title }}</div>
+              <div class="text-muted small"><i class="bi bi-geo-alt text-warning"></i> {{ tour.destination }}</div>
+              <div class="text-success fw-bold small">UGX {{ "{:,.0f}".format(tour.price) }} / person</div>
+            </div>
+          </div>
 
           <form method="POST">
             <div class="mb-3">
-              <label class="form-label">Number of Seats</label>
-              <input type="number" name="seats" class="form-control" min="1" max="{{ tour.available_seats }}" value="1" required />
-              <div class="form-text">{{ tour.available_seats }} seats available</div>
+              <label class="form-label fw-semibold">Number of Seats</label>
+              <input type="number" name="seats" class="form-control form-control-lg" min="1" max="{{ tour.available_seats }}" value="1" required id="seatsInput" />
+              <div class="form-text"><i class="bi bi-info-circle text-warning"></i> {{ tour.available_seats }} seats available for this tour</div>
             </div>
             <div class="mb-3">
-              <label class="form-label">Travel Date</label>
-              <input type="date" name="travel_date" class="form-control" required />
+              <label class="form-label fw-semibold">Preferred Travel Date</label>
+              <input type="date" name="travel_date" class="form-control form-control-lg" required id="dateInput" />
             </div>
-            <div class="alert alert-info small">
-              <i class="bi bi-info-circle"></i> Total price will be calculated as: seats × ${{ "%.0f"|format(tour.price) }}
+
+            <div class="alert alert-warning small" id="pricePreview">
+              <i class="bi bi-calculator me-1"></i>
+              Estimated Total: <strong id="totalDisplay">UGX {{ "{:,.0f}".format(tour.price) }}</strong>
+              <span class="text-muted">(1 seat × UGX {{ "{:,.0f}".format(tour.price) }})</span>
             </div>
-            <button type="submit" class="btn btn-warning w-100 fw-bold">Confirm Booking</button>
+
+            <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold">
+              <i class="bi bi-check-circle me-1"></i> Confirm Booking
+            </button>
             <a href="{{ url_for('tour_detail', tour_id=tour.id) }}" class="btn btn-outline-secondary w-100 mt-2">Cancel</a>
           </form>
         </div>
@@ -31,4 +46,15 @@
     </div>
   </div>
 </div>
+
+<script>
+  const pricePerSeat = {{ tour.price }};
+  const seatsInput = document.getElementById('seatsInput');
+  const totalDisplay = document.getElementById('totalDisplay');
+  seatsInput.addEventListener('input', function() {
+    const seats = parseInt(this.value) || 1;
+    const total = seats * pricePerSeat;
+    totalDisplay.textContent = 'UGX ' + total.toLocaleString('en-UG', {maximumFractionDigits: 0});
+  });
+</script>
 {% endblock %}

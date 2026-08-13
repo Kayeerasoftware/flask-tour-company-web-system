@@ -1,32 +1,127 @@
 {% extends 'base.html' %}
-{% block title %}About Us – WanderWorld{% endblock %}
+{% block title %}About Us – DEHAPIZ Tour and Travel Uganda{% endblock %}
 
 {% block content %}
+
+<!-- Page Header -->
+<div class="page-header text-white text-center py-5">
+  <div class="container">
+    <h1 class="fw-bold display-5">About DEHAPIZ</h1>
+    <p class="lead opacity-75">Uganda's Trusted Tour & Travel Company</p>
+  </div>
+</div>
+
+<!-- Company Story -->
 <div class="container my-5">
   <div class="row align-items-center g-5 mb-5">
-    <div class="col-md-6">
-      <h2 class="fw-bold">About WanderWorld Tours</h2>
-      <p class="text-muted">Founded in 2010, WanderWorld Tours has been crafting unforgettable travel experiences for adventurers around the globe. We believe travel is more than just visiting places — it's about connecting with cultures, creating memories, and discovering yourself.</p>
-      <p class="text-muted">From the ancient pyramids of Egypt to the northern lights of Iceland, our expert team designs every tour with passion, safety, and authenticity in mind.</p>
+    <div class="col-lg-6">
+      <span class="badge bg-warning text-dark px-3 py-2 mb-3">Our Story</span>
+      <h2 class="fw-bold display-6 mb-3">Who We Are</h2>
+      <p class="text-muted lh-lg">
+        <strong>DEHAPIZ Tour and Travel Uganda</strong> is a proudly Ugandan-owned and operated tour company headquartered in Kampala, Uganda. Founded with a deep passion for showcasing the extraordinary natural beauty, rich wildlife, and vibrant cultures of the Pearl of Africa, DEHAPIZ has grown into one of Uganda's most trusted names in tourism.
+      </p>
+      <p class="text-muted lh-lg">
+        Our name, DEHAPIZ, represents the spirit of discovery — the belief that every journey should be transformative, every destination should leave a lasting impression, and every traveller should return home with stories worth telling. We specialise in crafting personalised safari experiences, gorilla trekking expeditions, cultural tours, adventure activities, and corporate travel packages across Uganda.
+      </p>
+      <p class="text-muted lh-lg">
+        We are fully licensed and registered with the <strong>Uganda Tourism Board (UTB)</strong> and are proud members of the <strong>Association of Uganda Tour Operators (AUTO)</strong>. Our commitment to responsible, sustainable, and community-based tourism ensures that every trip you take with us directly benefits the local communities and conservation efforts in Uganda.
+      </p>
     </div>
-    <div class="col-md-6 text-center">
-      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600" class="img-fluid rounded shadow" alt="Travel" />
+    <div class="col-lg-6">
+      <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700"
+           class="img-fluid rounded-3 shadow-lg" alt="Uganda Safari" />
     </div>
   </div>
 
-  <h3 class="fw-bold text-center mb-4">Meet Our Team</h3>
-  <div class="row g-4 text-center">
-    {% for member in [
-      {'name': 'Sarah Johnson', 'role': 'CEO & Founder', 'img': 'https://i.pravatar.cc/150?img=47'},
-      {'name': 'James Carter', 'role': 'Head of Operations', 'img': 'https://i.pravatar.cc/150?img=12'},
-      {'name': 'Amina Hassan', 'role': 'Lead Tour Guide', 'img': 'https://i.pravatar.cc/150?img=45'},
-    ] %}
+  <!-- Mission, Vision, Values -->
+  <div class="row g-4 mb-5">
     <div class="col-md-4">
-      <img src="{{ member.img }}" class="rounded-circle mb-3 shadow" width="120" alt="{{ member.name }}" />
-      <h6 class="fw-bold mb-0">{{ member.name }}</h6>
-      <small class="text-muted">{{ member.role }}</small>
+      <div class="card border-0 shadow-sm h-100 text-center p-4">
+        <div class="fs-1 mb-3">🎯</div>
+        <h5 class="fw-bold">Our Mission</h5>
+        <p class="text-muted small">To provide exceptional, authentic, and affordable Ugandan travel experiences that connect people with nature, wildlife, and culture — while uplifting local communities and promoting conservation.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 text-center p-4">
+        <div class="fs-1 mb-3">🌟</div>
+        <h5 class="fw-bold">Our Vision</h5>
+        <p class="text-muted small">To be East Africa's leading tour company, recognised for excellence in service, deep local expertise, and a genuine commitment to sustainable tourism that benefits Uganda and its people.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 text-center p-4">
+        <div class="fs-1 mb-3">💚</div>
+        <h5 class="fw-bold">Our Values</h5>
+        <p class="text-muted small">Integrity, authenticity, sustainability, community empowerment, and a relentless passion for delivering unforgettable experiences. We treat every traveller like family.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What We Offer -->
+  <div class="bg-light rounded-3 p-5 mb-5">
+    <h3 class="fw-bold text-center mb-4">What We Offer</h3>
+    <div class="row g-3">
+      {% for service in [
+        ('🦍', 'Gorilla & Chimp Trekking', 'Bwindi, Mgahinga & Kibale permits and full packages'),
+        ('🐘', 'Wildlife Safaris', 'Queen Elizabeth, Murchison Falls, Kidepo Valley'),
+        ('🏔️', 'Mountain Expeditions', 'Rwenzori Mountains, Mount Elgon hiking'),
+        ('🚣', 'Adventure Activities', 'White-water rafting, bungee jumping, kayaking in Jinja'),
+        ('🏝️', 'Beach & Lake Getaways', 'Ssese Islands, Lake Bunyonyi, Lake Mburo'),
+        ('🎭', 'Cultural Tours', 'Buganda Kingdom, Karamoja, Batwa community visits'),
+        ('🐦', 'Bird Watching', 'Uganda has 1,000+ species — a birder\'s paradise'),
+        ('🚐', 'Corporate & Group Travel', 'Team building, MICE, and customised group packages'),
+      ] %}
+      <div class="col-md-3 col-6">
+        <div class="d-flex align-items-start gap-2">
+          <span class="fs-4">{{ service[0] }}</span>
+          <div>
+            <div class="fw-semibold small">{{ service[1] }}</div>
+            <div class="text-muted" style="font-size:0.78rem;">{{ service[2] }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="text-center mb-5">
+    <span class="badge bg-warning text-dark px-3 py-2 mb-2">The People Behind DEHAPIZ</span>
+    <h2 class="fw-bold display-6">Meet Our Team</h2>
+    <p class="text-muted">Passionate Ugandans dedicated to giving you the best travel experience</p>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    {% for member in [
+      {'name': 'Agaba Jimmy', 'role': 'Chief Executive Officer', 'bio': 'Jimmy is the visionary founder of DEHAPIZ with over 10 years in Uganda\'s tourism industry. His deep love for Uganda\'s wildlife and culture drives the company\'s mission.', 'img': 'https://i.pravatar.cc/200?img=11'},
+      {'name': 'Kayeera Nathan', 'role': 'Head of Operations & Technology', 'bio': 'Nathan oversees day-to-day operations and leads the company\'s digital transformation. He ensures every tour runs smoothly from booking to return.', 'img': 'https://i.pravatar.cc/200?img=15'},
+      {'name': 'Nabanoba Jenny', 'role': 'Customer Experience Manager', 'bio': 'Jenny is the heart of DEHAPIZ\'s customer service. She ensures every traveller feels welcomed, informed, and cared for throughout their journey.', 'img': 'https://i.pravatar.cc/200?img=47'},
+      {'name': 'Kayemba Charles', 'role': 'Senior Safari Guide', 'bio': 'Charles is a certified Uganda Wildlife Authority guide with expertise in gorilla trekking, big game safaris, and bird watching across all of Uganda\'s national parks.', 'img': 'https://i.pravatar.cc/200?img=13'},
+      {'name': 'Bainomugisha Hajara', 'role': 'Finance & Partnerships Manager', 'bio': 'Hajara manages DEHAPIZ\'s finances and builds strategic partnerships with hotels, airlines, and community organisations to deliver the best value to clients.', 'img': 'https://i.pravatar.cc/200?img=45'},
+      {'name': 'Okoria Adran', 'role': 'Adventure & Logistics Coordinator', 'bio': 'Adran coordinates all adventure activities and ground logistics. From Jinja rafting to Rwenzori expeditions, he ensures every adventure is safe and thrilling.', 'img': 'https://i.pravatar.cc/200?img=17'},
+    ] %}
+    <div class="col-md-4 col-sm-6">
+      <div class="card border-0 shadow-sm text-center p-4 h-100 team-card">
+        <img src="{{ member.img }}" class="rounded-circle mx-auto mb-3 shadow team-photo" width="110" height="110" alt="{{ member.name }}" />
+        <h5 class="fw-bold mb-0">{{ member.name }}</h5>
+        <p class="text-warning small fw-semibold mb-2">{{ member.role }}</p>
+        <p class="text-muted small">{{ member.bio }}</p>
+      </div>
     </div>
     {% endfor %}
   </div>
+
+  <!-- Certifications -->
+  <div class="text-center mt-5 pt-3">
+    <h5 class="fw-bold mb-3 text-muted">Certified & Recognised By</h5>
+    <div class="d-flex justify-content-center gap-4 flex-wrap">
+      <span class="badge bg-dark px-4 py-2 fs-6">🏛️ Uganda Tourism Board (UTB)</span>
+      <span class="badge bg-dark px-4 py-2 fs-6">🌿 AUTO Member</span>
+      <span class="badge bg-dark px-4 py-2 fs-6">🦍 UWA Certified</span>
+      <span class="badge bg-dark px-4 py-2 fs-6">🌍 Eco-Tourism Uganda</span>
+    </div>
+  </div>
 </div>
+
 {% endblock %}

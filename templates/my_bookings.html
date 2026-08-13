@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}My Bookings – WanderWorld{% endblock %}
+{% block title %}My Bookings – DEHAPIZ{% endblock %}
 
 {% block content %}
 <div class="container my-5">
-  <h2 class="fw-bold mb-4"><i class="bi bi-calendar-check text-warning"></i> My Bookings</h2>
+  <h2 class="fw-bold mb-1"><i class="bi bi-calendar-check text-warning"></i> My Bookings</h2>
+  <p class="text-muted mb-4">Manage all your DEHAPIZ tour bookings</p>
 
   {% if bookings %}
   <div class="table-responsive">
@@ -15,7 +16,7 @@
           <th>Destination</th>
           <th>Travel Date</th>
           <th>Seats</th>
-          <th>Total</th>
+          <th>Total (UGX)</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
@@ -23,12 +24,16 @@
       <tbody>
         {% for b in bookings %}
         <tr>
-          <td>{{ b.id }}</td>
-          <td><a href="{{ url_for('tour_detail', tour_id=b.tour.id) }}">{{ b.tour.title }}</a></td>
-          <td>{{ b.tour.destination }}</td>
-          <td>{{ b.travel_date.strftime('%b %d, %Y') }}</td>
+          <td class="text-muted small">{{ b.id }}</td>
+          <td>
+            <a href="{{ url_for('tour_detail', tour_id=b.tour.id) }}" class="fw-semibold text-decoration-none text-dark">
+              {{ b.tour.title }}
+            </a>
+          </td>
+          <td><small class="text-muted">{{ b.tour.destination.split(',')[0] }}</small></td>
+          <td><strong>{{ b.travel_date.strftime('%d %b %Y') }}</strong></td>
           <td>{{ b.seats }}</td>
-          <td class="fw-bold text-success">${{ "%.0f"|format(b.total_price) }}</td>
+          <td class="fw-bold text-success">{{ "{:,.0f}".format(b.total_price) }}</td>
           <td>
             {% if b.status == 'confirmed' %}
               <span class="badge bg-success">Confirmed</span>
@@ -39,9 +44,11 @@
           <td>
             {% if b.status == 'confirmed' %}
             <form method="POST" action="{{ url_for('cancel_booking', booking_id=b.id) }}"
-                  onsubmit="return confirm('Cancel this booking?')">
+                  onsubmit="return confirm('Are you sure you want to cancel this booking?')">
               <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
             </form>
+            {% else %}
+            <span class="text-muted small">—</span>
             {% endif %}
           </td>
         </tr>
@@ -52,8 +59,9 @@
   {% else %}
   <div class="text-center py-5">
     <i class="bi bi-calendar-x fs-1 text-muted"></i>
-    <p class="mt-3 text-muted">You have no bookings yet.</p>
-    <a href="{{ url_for('tours') }}" class="btn btn-warning">Browse Tours</a>
+    <h5 class="mt-3 text-muted">You have no bookings yet</h5>
+    <p class="text-muted small">Explore our Uganda tours and book your next adventure!</p>
+    <a href="{{ url_for('tours') }}" class="btn btn-warning px-4 mt-2">Browse Uganda Tours</a>
   </div>
   {% endif %}
 </div>

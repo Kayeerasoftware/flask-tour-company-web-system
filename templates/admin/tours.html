@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}Manage Tours – Admin{% endblock %}
+{% block title %}Manage Tours – DEHAPIZ Admin{% endblock %}
 
 {% block content %}
 <div class="container my-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold"><i class="bi bi-map text-warning"></i> Manage Tours</h2>
-    <a href="{{ url_for('admin_add_tour') }}" class="btn btn-warning"><i class="bi bi-plus-circle"></i> Add Tour</a>
+    <div>
+      <h2 class="fw-bold mb-0"><i class="bi bi-map text-warning"></i> Manage Tours</h2>
+      <p class="text-muted small mb-0">{{ tours|length }} tours in the system</p>
+    </div>
+    <a href="{{ url_for('admin_add_tour') }}" class="btn btn-warning fw-bold"><i class="bi bi-plus-circle me-1"></i> Add Tour</a>
   </div>
 
   <div class="table-responsive">
@@ -15,8 +18,8 @@
           <th>#</th>
           <th>Title</th>
           <th>Destination</th>
-          <th>Price</th>
-          <th>Duration</th>
+          <th>Price (UGX)</th>
+          <th>Days</th>
           <th>Seats</th>
           <th>Status</th>
           <th>Actions</th>
@@ -25,10 +28,10 @@
       <tbody>
         {% for tour in tours %}
         <tr>
-          <td>{{ tour.id }}</td>
-          <td>{{ tour.title }}</td>
-          <td>{{ tour.destination }}</td>
-          <td>${{ "%.0f"|format(tour.price) }}</td>
+          <td class="text-muted small">{{ tour.id }}</td>
+          <td class="fw-semibold">{{ tour.title }}</td>
+          <td><small class="text-muted">{{ tour.destination }}</small></td>
+          <td class="text-success fw-bold">{{ "{:,.0f}".format(tour.price) }}</td>
           <td>{{ tour.duration_days }}d</td>
           <td>{{ tour.available_seats }}/{{ tour.max_seats }}</td>
           <td>
@@ -39,9 +42,9 @@
             {% endif %}
           </td>
           <td>
-            <a href="{{ url_for('admin_edit_tour', tour_id=tour.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            <a href="{{ url_for('admin_edit_tour', tour_id=tour.id) }}" class="btn btn-sm btn-outline-primary me-1">Edit</a>
             <form method="POST" action="{{ url_for('admin_delete_tour', tour_id=tour.id) }}" class="d-inline"
-                  onsubmit="return confirm('Delete this tour?')">
+                  onsubmit="return confirm('Delete this tour permanently?')">
               <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
             </form>
           </td>
