@@ -145,7 +145,24 @@
 
 /* ── Footer ── */
 .footer-main {
-  background: var(--ug-black);
+  background: #111;
+}
+
+.footer-main p,
+.footer-main li,
+.footer-main small,
+.footer-main span,
+.footer-main div {
+  color: #ddd !important;
+}
+
+.footer-main .fw-bold {
+  color: #fff !important;
+}
+
+.footer-main .text-warning,
+.footer-main .text-warning i {
+  color: var(--ug-yellow) !important;
 }
 
 .footer-logo {
@@ -157,7 +174,7 @@
 }
 
 .footer-link {
-  color: #aaa;
+  color: #ccc !important;
   text-decoration: none;
   display: block;
   margin-bottom: 6px;
@@ -166,7 +183,15 @@
 }
 
 .footer-link:hover {
-  color: var(--ug-yellow);
+  color: var(--ug-yellow) !important;
+}
+
+.footer-main hr {
+  border-color: #444 !important;
+}
+
+.footer-main .border-secondary {
+  border-color: #444 !important;
 }
 
 /* ── Misc ── */
