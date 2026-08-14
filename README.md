@@ -83,4 +83,4 @@ tour_company_flask/
 
 ## Developer
 
-Built by **Kayeera Nathan** — DEHAPIZ Tour and Travel Uganda
+Built by **Kayeera Nathan**  DEHAPIZ Tour and Travel Uganda as a school project
