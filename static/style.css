@@ -48,7 +48,7 @@
 /* ── Hero Section ── */
 .hero-section {
   background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
-              url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600') center/cover no-repeat;
+              url('/static/uploads/bg_hero.jpg') center/cover no-repeat;
   min-height: 520px;
   padding: 80px 20px;
 }
@@ -81,7 +81,7 @@
 /* ── Page Header (inner pages) ── */
 .page-header {
   background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-              url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1400') center/cover no-repeat;
+              url('/static/uploads/bg_page_header.jpg') center/cover no-repeat;
 }
 
 /* ── Tour Cards ── */
@@ -126,7 +126,7 @@
 /* ── Uganda Highlights Section ── */
 .uganda-highlights {
   background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)),
-              url('https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=1400') center/cover no-repeat;
+              url('/static/uploads/bg_highlights.jpg') center/cover no-repeat;
 }
 
 .highlight-card {
