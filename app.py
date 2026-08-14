@@ -347,63 +347,63 @@ def seed_data():
             destination='Bwindi Impenetrable Forest, Kigezi',
             description='Embark on a once-in-a-lifetime gorilla trekking experience deep inside Bwindi Impenetrable National Park — a UNESCO World Heritage Site. Trek through ancient montane forest to spend a magical hour with habituated mountain gorilla families. Bwindi is home to nearly half of the world\'s remaining mountain gorillas. The package includes park entry, gorilla permits, an experienced ranger guide, accommodation in a forest lodge, and transfers from Kampala.',
             duration_days=3, price=2500000, max_seats=8,
-            image_url='https://images.unsplash.com/photo-1448375240586-882707db888b?w=800'
+            image_url='/static/uploads/tour_bwindi.jpg'
         ),
         Tour(
             title='Queen Elizabeth Wildlife Safari',
             destination='Queen Elizabeth National Park, Western Uganda',
             description='Discover the incredible biodiversity of Queen Elizabeth National Park — one of Africa\'s most rewarding safari destinations. Enjoy game drives to spot lions, elephants, buffaloes, leopards, and the famous tree-climbing lions of Ishasha. A Kazinga Channel boat cruise brings you face-to-face with hippos, crocodiles, and hundreds of bird species. The park sits on the Equator and offers stunning views of the Rwenzori Mountains.',
             duration_days=4, price=1800000, max_seats=12,
-            image_url='https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800'
+            image_url='/static/uploads/tour_queen_elizabeth.jpg'
         ),
         Tour(
             title='Murchison Falls Adventure',
             destination='Murchison Falls National Park, Northern Uganda',
             description='Visit Uganda\'s largest national park and witness the world\'s most powerful waterfall — Murchison Falls, where the entire Nile River is forced through a 7-metre gorge with thunderous force. Enjoy thrilling game drives to see giraffes, elephants, lions, and buffaloes. A Nile boat cruise to the base of the falls is an absolute highlight. The park also offers excellent bird watching with over 450 recorded species.',
             duration_days=3, price=1500000, max_seats=14,
-            image_url='https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800'
+            image_url='/static/uploads/tour_murchison.jpg'
         ),
         Tour(
             title='Rwenzori Mountains Hiking Expedition',
             destination='Rwenzori Mountains, Kasese',
             description='Conquer the legendary Mountains of the Moon — the Rwenzori Range, a UNESCO World Heritage Site and one of Africa\'s most dramatic mountain environments. Trek through afro-montane forests, bamboo zones, heather moorlands, and glacial valleys to reach Margherita Peak (5,109m), the third highest point in Africa. The Rwenzoris are famous for their unique giant flora including giant lobelias, groundsels, and heathers.',
             duration_days=7, price=3200000, max_seats=8,
-            image_url='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800'
+            image_url='/static/uploads/tour_rwenzori.jpg'
         ),
         Tour(
             title='Lake Bunyonyi & Kigezi Highlands',
             destination='Lake Bunyonyi, Kabale',
             description='Relax and explore the breathtakingly beautiful Lake Bunyonyi — one of Africa\'s deepest lakes, nestled among the terraced hills of Kigezi in southwestern Uganda. Paddle a dugout canoe between the lake\'s 29 islands, visit Punishment Island, and interact with the warm Bakiga community. The surrounding highlands offer spectacular hiking trails with panoramic views of the rolling green hills often called the \'Switzerland of Africa\'.',
             duration_days=3, price=950000, max_seats=16,
-            image_url='https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800'
+            image_url='/static/uploads/tour_bunyonyi.jpg'
         ),
         Tour(
             title='Kibale Chimpanzee Tracking',
             destination='Kibale National Park, Fort Portal',
             description='Track our closest relatives — chimpanzees — in Kibale National Park, which boasts the highest density of primates in Africa. Spend time with habituated chimpanzee communities as they forage, play, and socialise in the lush tropical rainforest. Kibale is also home to 12 other primate species including red colobus monkeys and L\'Hoest\'s monkeys. The package includes the Bigodi Wetland Sanctuary walk, a community-run ecotourism gem.',
             duration_days=2, price=1200000, max_seats=10,
-            image_url='https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=800'
+            image_url='/static/uploads/tour_kibale.jpg'
         ),
         Tour(
             title='Source of the Nile & Jinja Adventure',
             destination='Jinja, Eastern Uganda',
             description='Visit Jinja — the adventure capital of East Africa — and stand at the legendary Source of the Nile, where the world\'s longest river begins its 6,650 km journey to the Mediterranean. Beyond history, Jinja offers world-class white-water rafting on Grade 5 rapids, bungee jumping, kayaking, quad biking, and horseback riding along the Nile banks. A perfect blend of history, culture, and adrenaline.',
             duration_days=2, price=750000, max_seats=20,
-            image_url='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800'
+            image_url='/static/uploads/tour_jinja.jpg'
         ),
         Tour(
             title='Kidepo Valley Wilderness Safari',
             destination='Kidepo Valley National Park, Karamoja',
             description='Venture off the beaten path to Kidepo Valley National Park — consistently rated among Africa\'s top wilderness destinations. Located in the remote Karamoja region of northeastern Uganda, Kidepo offers raw, untouched savannah landscapes and exceptional wildlife including cheetahs, ostriches, bat-eared foxes, and large lion prides. Interact with the proud Karamojong and IK communities for an authentic cultural experience unlike anywhere else.',
             duration_days=4, price=2200000, max_seats=10,
-            image_url='https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800'
+            image_url='/static/uploads/tour_kidepo.jpg'
         ),
         Tour(
             title='Ssese Islands Beach Getaway',
             destination='Ssese Islands, Lake Victoria',
             description='Escape to the tropical paradise of the Ssese Islands — an archipelago of 84 islands scattered across Lake Victoria, the world\'s second largest freshwater lake. Relax on pristine sandy beaches fringed by lush forest, go fishing with local fishermen, explore the islands by bicycle, and enjoy spectacular sunsets over the lake. The islands are accessible by ferry from Entebbe and offer a perfect weekend retreat from the city.',
             duration_days=3, price=850000, max_seats=18,
-            image_url='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800'
+            image_url='/static/uploads/tour_ssese.jpg'
         ),
     ]
     db.session.add_all(sample_tours)
@@ -413,13 +413,42 @@ def seed_data():
 with app.app_context():
     db.create_all()
     seed_data()
-    # Fix any tours with broken image URLs
-    _bwindi = db.session.execute(db.text("SELECT id FROM tour WHERE title LIKE '%Bwindi%'")).fetchone()
-    if _bwindi:
-        db.session.execute(db.text(
-            "UPDATE tour SET image_url = :url WHERE title LIKE '%Bwindi%'"
-        ), {'url': 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800'})
-        db.session.commit()
+    # Migrate any remaining Unsplash URLs to local files
+    url_map = {
+        'photo-1448375240586': '/static/uploads/tour_bwindi.jpg',
+        'photo-1516426122078': '/static/uploads/tour_queen_elizabeth.jpg',
+        'photo-1504432842672': '/static/uploads/tour_murchison.jpg',
+        'photo-1464822759023': '/static/uploads/tour_rwenzori.jpg',
+        'photo-1500534314209': '/static/uploads/tour_bunyonyi.jpg',
+        'photo-1540573133985': '/static/uploads/tour_kibale.jpg',
+        'photo-1506905925346': '/static/uploads/tour_jinja.jpg',
+        'photo-1547471080-7cc': '/static/uploads/tour_kidepo.jpg',
+        'photo-1507525428034': '/static/uploads/tour_ssese.jpg',
+    }
+    for keyword, local_path in url_map.items():
+        db.session.execute(
+            db.text('UPDATE tour SET image_url = :local WHERE image_url LIKE :kw'),
+            {'local': local_path, 'kw': f'%{keyword}%'}
+        )
+    db.session.commit()
+    # Migrate any remaining Unsplash URLs to local files
+    url_map = {
+        'photo-1448375240586': '/static/uploads/tour_bwindi.jpg',
+        'photo-1516426122078': '/static/uploads/tour_queen_elizabeth.jpg',
+        'photo-1504432842672': '/static/uploads/tour_murchison.jpg',
+        'photo-1464822759023': '/static/uploads/tour_rwenzori.jpg',
+        'photo-1500534314209': '/static/uploads/tour_bunyonyi.jpg',
+        'photo-1540573133985': '/static/uploads/tour_kibale.jpg',
+        'photo-1506905925346': '/static/uploads/tour_jinja.jpg',
+        'photo-1547471080-7cc': '/static/uploads/tour_kidepo.jpg',
+        'photo-1507525428034': '/static/uploads/tour_ssese.jpg',
+    }
+    for keyword, local_path in url_map.items():
+        db.session.execute(
+            db.text('UPDATE tour SET image_url = :local WHERE image_url LIKE :kw'),
+            {'local': local_path, 'kw': f'%{keyword}%'}
+        )
+    db.session.commit()
 
 
 if __name__ == '__main__':
