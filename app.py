@@ -8,7 +8,7 @@ from functools import wraps
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'tour-secret-key-change-in-production'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'tour-secret-key-change-in-production')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tours.db'
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png', 'webp'}
@@ -431,25 +431,7 @@ with app.app_context():
             {'local': local_path, 'kw': f'%{keyword}%'}
         )
     db.session.commit()
-    # Migrate any remaining Unsplash URLs to local files
-    url_map = {
-        'photo-1448375240586': '/static/uploads/tour_bwindi.jpg',
-        'photo-1516426122078': '/static/uploads/tour_queen_elizabeth.jpg',
-        'photo-1504432842672': '/static/uploads/tour_murchison.jpg',
-        'photo-1464822759023': '/static/uploads/tour_rwenzori.jpg',
-        'photo-1500534314209': '/static/uploads/tour_bunyonyi.jpg',
-        'photo-1540573133985': '/static/uploads/tour_kibale.jpg',
-        'photo-1506905925346': '/static/uploads/tour_jinja.jpg',
-        'photo-1547471080-7cc': '/static/uploads/tour_kidepo.jpg',
-        'photo-1507525428034': '/static/uploads/tour_ssese.jpg',
-    }
-    for keyword, local_path in url_map.items():
-        db.session.execute(
-            db.text('UPDATE tour SET image_url = :local WHERE image_url LIKE :kw'),
-            {'local': local_path, 'kw': f'%{keyword}%'}
-        )
-    db.session.commit()
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
