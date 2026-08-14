@@ -13,7 +13,7 @@
           </h4>
         </div>
         <div class="card-body p-4">
-          <form method="POST">
+          <form method="POST" enctype="multipart/form-data">
             <div class="mb-3">
               <label class="form-label fw-semibold">Tour Title</label>
               <input type="text" name="title" class="form-control" value="{{ tour.title if tour else '' }}"
@@ -42,18 +42,38 @@
                 <input type="number" name="max_seats" class="form-control" value="{{ tour.max_seats if tour else '' }}" min="1" required />
               </div>
             </div>
+
+            <!-- Image Upload -->
             <div class="mb-3 mt-3">
-              <label class="form-label fw-semibold">Image URL</label>
-              <input type="url" name="image_url" class="form-control" value="{{ tour.image_url if tour else '' }}"
-                     placeholder="https://images.unsplash.com/..." />
-              <div class="form-text">Use an Unsplash URL for a Uganda-related image</div>
+              <label class="form-label fw-semibold">Tour Image</label>
+
+              {% if tour and tour.image_url %}
+              <div class="mb-2">
+                <img id="imgPreview" src="{{ tour.image_url }}" class="img-fluid rounded shadow-sm"
+                     style="max-height:200px;width:100%;object-fit:cover;" alt="Current image" />
+                <div class="form-text mt-1"><i class="bi bi-info-circle text-warning"></i> Current image — upload a new one to replace it.</div>
+              </div>
+              {% else %}
+              <div class="mb-2 border rounded d-flex align-items-center justify-content-center bg-light"
+                   style="height:160px;" id="previewPlaceholder">
+                <span class="text-muted"><i class="bi bi-image fs-1"></i><br><small>No image yet</small></span>
+              </div>
+              <img id="imgPreview" src="" class="img-fluid rounded shadow-sm d-none mb-2"
+                   style="max-height:200px;width:100%;object-fit:cover;" alt="Preview" />
+              {% endif %}
+
+              <input type="file" name="image_file" id="imageInput" class="form-control"
+                     accept=".jpg,.jpeg,.png,.webp" />
+              <div class="form-text">Accepted formats: JPG, PNG, WEBP. Max recommended size: 2MB.</div>
             </div>
+
             {% if tour %}
             <div class="mb-3 form-check">
               <input type="checkbox" name="is_active" class="form-check-input" id="isActive" {{ 'checked' if tour.is_active }}>
               <label class="form-check-label" for="isActive">Active (visible to users)</label>
             </div>
             {% endif %}
+
             <button type="submit" class="btn btn-warning w-100 fw-bold btn-lg">
               {{ 'Update Tour' if tour else 'Add Tour' }}
             </button>
@@ -64,4 +84,20 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.getElementById('imageInput').addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const preview = document.getElementById('imgPreview');
+      const placeholder = document.getElementById('previewPlaceholder');
+      preview.src = e.target.result;
+      preview.classList.remove('d-none');
+      if (placeholder) placeholder.classList.add('d-none');
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
 {% endblock %}

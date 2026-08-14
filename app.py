@@ -2,12 +2,16 @@ from flask import Flask, render_template, redirect, url_for, request, flash, abo
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from datetime import datetime
 from functools import wraps
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tour-secret-key-change-in-production'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tours.db'
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png', 'webp'}
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -83,6 +87,19 @@ def admin_required(f):
             abort(403)
         return f(*args, **kwargs)
     return decorated
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+
+def save_tour_image(file, old_image=None):
+    """Save uploaded image, return the URL path to store in DB."""
+    if file and file.filename and allowed_file(file.filename):
+        filename = secure_filename(f"{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}_{file.filename}")
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return url_for('static', filename=f'uploads/{filename}')
+    return old_image  # keep existing if no new file uploaded
 
 
 # ── Public Routes ─────────────────────────────────────────────────────────────
@@ -250,6 +267,7 @@ def admin_tours():
 @admin_required
 def admin_add_tour():
     if request.method == 'POST':
+        image_url = save_tour_image(request.files.get('image_file')) or 'https://placehold.co/800x400?text=Tour'
         tour = Tour(
             title=request.form['title'],
             destination=request.form['destination'],
@@ -257,7 +275,7 @@ def admin_add_tour():
             duration_days=int(request.form['duration_days']),
             price=float(request.form['price']),
             max_seats=int(request.form['max_seats']),
-            image_url=request.form['image_url'] or 'https://placehold.co/800x400?text=Tour'
+            image_url=image_url
         )
         db.session.add(tour)
         db.session.commit()
@@ -278,8 +296,9 @@ def admin_edit_tour(tour_id):
         tour.duration_days = int(request.form['duration_days'])
         tour.price = float(request.form['price'])
         tour.max_seats = int(request.form['max_seats'])
-        tour.image_url = request.form['image_url'] or tour.image_url
         tour.is_active = 'is_active' in request.form
+        new_image = save_tour_image(request.files.get('image_file'), old_image=tour.image_url)
+        tour.image_url = new_image
         db.session.commit()
         flash('Tour updated!', 'success')
         return redirect(url_for('admin_tours'))
