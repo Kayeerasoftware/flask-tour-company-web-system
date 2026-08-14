@@ -51,6 +51,11 @@
   const pricePerSeat = {{ tour.price }};
   const seatsInput = document.getElementById('seatsInput');
   const totalDisplay = document.getElementById('totalDisplay');
+  const dateInput = document.getElementById('dateInput');
+
+  // Block past dates
+  dateInput.min = new Date().toISOString().split('T')[0];
+
   seatsInput.addEventListener('input', function() {
     const seats = parseInt(this.value) || 1;
     const total = seats * pricePerSeat;
